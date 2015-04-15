@@ -1,0 +1,23 @@
+{
+  "name": "charts-dashboard",
+  "version": "0.0.1",
+  "authors": [
+    "Kirill Senkevich <frexin@ya.ru>"
+  ],
+  "main": "ja/app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "highcharts": "~4.1.4",
+    "jquery-validation": "~1.13.1",
+    "mithril": "~0.1.34",
+    "moment": "~2.10.2"
+  }
+}
