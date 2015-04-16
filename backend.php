@@ -23,10 +23,33 @@ if (isset($_GET['action'])) {
 
             break;
         case "collection.save":
-            $chart_params = $_GET['params']['items'][0];
+            $chart_params = $_GET['params']['items'];
+            $chart_params = json_encode($chart_params);
+            $sql = 'INSERT INTO charts (dt_add, `name`, items) VALUES (:dt_add, :name, :items)';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':dt_add', time());
+            $stmt->bindValue(':name', $_GET['params']['name']);
+            $stmt->bindValue(':items', $chart_params);
+
+            $stmt->execute();
+            $result['group_id'] = $db->lastInsertId();
+            break;
+        case "collection.get":
+            $id = $_GET['params']['id'];
+            $stmt = $db->prepare('SELECT id, name, items FROM charts WHERE id = :id');
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $items = array_values(json_decode($row['items'], true));
+            $row['items'] = [];
+            foreach ($items as $item) {
+                $row['items'][] = $item;
+            }
+
+            $result = $row;
             break;
     }
 
-    header('Content-type: appliction/json');
+    header('Content-type: application/json');
     print json_encode($result);
 }

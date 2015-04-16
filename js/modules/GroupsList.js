@@ -35,7 +35,7 @@ if (typeof ChartsDashboard == "undefined") {
         },
 
         selectItem : function(item_id) {
-            $('a.list-group-item', this.container).removeClass('item');
+            $('a.list-group-item', this.container).removeClass('active');
 
             var selectedNode = $('a.list-group-item[data-id=' + item_id + ']', this.container);
             selectedNode.addClass('active');

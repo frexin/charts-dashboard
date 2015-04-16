@@ -39,12 +39,14 @@ if (typeof ChartsDashboard == "undefined") {
                 for (var i = 0; i < response.items.length; i++) {
                     var item = response.items[i];
 
-                    remoteDataModule.requestStatData(item).done(function(response) {
-                        var dataBridge = new ChartsDashboard.dataBridgeModule(response);
-                        var chart = new ChartsDashboard.chartModule(item.name, dataBridge.getCategories(), dataBridge.getData());
+                    (function(name) {
+                        remoteDataModule.requestStatData(item).done(function(response, chartItem) {
+                            var dataBridge = new ChartsDashboard.dataBridgeModule(response);
+                            var chart = new ChartsDashboard.chartModule(name, dataBridge.getCategories(), dataBridge.getData());
 
-                        chartsCollection.addItem(chart);
-                    });
+                            chartsCollection.addItem(chart);
+                        });
+                    }(item.name));
                 }
             }
         });
