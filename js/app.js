@@ -39,16 +39,31 @@ if (typeof ChartsDashboard == "undefined") {
                 for (var i = 0; i < response.items.length; i++) {
                     var item = response.items[i];
 
-                    (function(name) {
-                        remoteDataModule.requestStatData(item).done(function(response, chartItem) {
+                    (function(item) {
+                        remoteDataModule.requestStatData(item).done(function(response) {
                             var dataBridge = new ChartsDashboard.dataBridgeModule(response);
-                            var chart = new ChartsDashboard.chartModule(name, dataBridge.getCategories(), dataBridge.getData());
+                            var chart = new ChartsDashboard.chartModule(item.name, dataBridge.getCategories(), dataBridge.getData());
+                            chart.setInitParams(item);
 
                             chartsCollection.addItem(chart);
                         });
-                    }(item.name));
+                    }(item));
                 }
             }
+        });
+    });
+
+    $.subscribe('chart.changeDate', function(e, date, chart) {
+        var params = chart.getInitParams();
+        params.from = moment(date, 'DD-MM-YYYY').format('YYYYMMDD');
+
+        remoteDataModule.requestStatData(params).done(function(response) {
+            var dataBridge = new ChartsDashboard.dataBridgeModule(response);
+
+            chart.setCategories(dataBridge.getCategories());
+            chart.setData(dataBridge.getData());
+
+            chart.show();
         });
     });
 
@@ -62,19 +77,6 @@ if (typeof ChartsDashboard == "undefined") {
                 chart.setInitParams(preparedData);
 
                 chartsCollection.addItem(chart);
-
-                $.subscribe('chart.changeDate', function(e, data) {
-                    preparedData.from = moment(data, 'DD-MM-YYYY').format('YYYYMMDD');
-
-                    remoteDataModule.requestStatData(preparedData).done(function(response) {
-                        var dataBridge = new ChartsDashboard.dataBridgeModule(response);
-
-                        chart.setCategories(dataBridge.getCategories());
-                        chart.setData(dataBridge.getData());
-
-                        chart.show();
-                    });
-                });
             });
         }
 

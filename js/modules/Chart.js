@@ -77,7 +77,7 @@ if (typeof ChartsDashboard == "undefined") {
         },
 
         changeStartDate : function(date) {
-            $.publish('chart.changeDate', [date]);
+            $.publish('chart.changeDate', [date, this]);
         },
 
         goFullScreen : function() {
