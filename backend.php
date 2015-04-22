@@ -34,6 +34,16 @@ if (isset($_GET['action'])) {
             $stmt->execute();
             $result['group_id'] = $db->lastInsertId();
             break;
+        case "collection.update":
+            $chart_params = json_encode($_GET['params']['items']);
+
+            $sql = 'UPDATE charts SET items = :items WHERE id = :id';
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':id', $_GET['params']['id']);
+            $stmt->bindValue(':items', $chart_params);
+            $stmt->execute();
+            break;
         case "collection.get":
             $id = $_GET['params']['id'];
             $stmt = $db->prepare('SELECT id, name, items FROM charts WHERE id = :id');

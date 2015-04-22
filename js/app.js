@@ -35,6 +35,7 @@ if (typeof ChartsDashboard == "undefined") {
         groupData.done(function(response) {
             if (response.items) {
                 chartsCollection.clear();
+                chartsCollection.setId(response.id);
 
                 for (var i = 0; i < response.items.length; i++) {
                     var item = response.items[i];
@@ -65,6 +66,17 @@ if (typeof ChartsDashboard == "undefined") {
 
             chart.show();
         });
+    });
+
+    $.subscribe('chart.remove', function(e, index, chart) {
+        chartsCollection.removeItem(index);
+
+        var collectionId = chartsCollection.getId();
+
+        if (collectionId) {
+            var itemsData = chartsCollection.serialize();
+            remoteDataModule.updateCollection(collectionId, itemsData);
+        }
     });
 
     chartsFormContainer.on('submit', function() {

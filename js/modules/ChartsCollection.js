@@ -9,6 +9,7 @@ if (typeof ChartsDashboard == "undefined") {
         this.template = chart_template;
 
         this.items = [];
+        this.id = null;
     };
 
     ChartsDashboard.chartsCollection.prototype = {
@@ -26,6 +27,19 @@ if (typeof ChartsDashboard == "undefined") {
 
         getItems : function() {
             return this.items;
+        },
+
+        removeItem : function(index) {
+            this.items.splice(index, 1);
+            return true;
+        },
+
+        setId : function(id) {
+            this.id = id;
+        },
+
+        getId : function() {
+            return this.id;
         },
 
         clear : function() {

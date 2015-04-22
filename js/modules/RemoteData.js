@@ -43,6 +43,14 @@ if (typeof ChartsDashboard == "undefined") {
             return promise;
         },
 
+        updateCollection : function(id, items) {
+            var promise = $.getJSON(this.local_url, {"action" : "collection.update", "params" : {
+                "id" : id, "items" : items
+            }});
+
+            return promise;
+        },
+
         requestCollection : function(collection_id) {
             var promise = $.getJSON(this.local_url, {"action" : "collection.get", "params" : {
                 "id" : collection_id

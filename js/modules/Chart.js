@@ -40,10 +40,6 @@ if (typeof ChartsDashboard == "undefined") {
         },
 
         show : function() {
-//            if (this.container.highcharts) {
-//                this.container.highcharts().destroy();
-//            }
-
             var chartOpts = this._prepareChartOptions();
             $('h4', this.container).text(this.getTitle());
             $('.chart-body', this.container).highcharts(chartOpts);
@@ -55,6 +51,12 @@ if (typeof ChartsDashboard == "undefined") {
             }
 
             return true;
+        },
+
+        remove : function() {
+            var chartIndex = this._getChartIndex();
+            this.destroy();
+            $.publish('chart.remove', [chartIndex, this]);
         },
 
         setData : function(data) {
@@ -89,6 +91,10 @@ if (typeof ChartsDashboard == "undefined") {
             container.modal('show');
         },
 
+        _getChartIndex : function() {
+            return this.container.index() - 1;
+        },
+
         _addHandlers : function() {
             if (!this.container.data('handlers')) {
                 $('#fullscreen-btn', this.container).on('click', $.proxy(function () {
@@ -99,6 +105,11 @@ if (typeof ChartsDashboard == "undefined") {
                 $('#start-date', this.container).on('change', $.proxy(function(e) {
                     var date = $(e.currentTarget).val();
                     this.changeStartDate(date);
+                    return false;
+                }, this));
+
+                $('.delete-chart', this.container).on('click', $.proxy(function(e) {
+                    this.remove();
                     return false;
                 }, this));
 

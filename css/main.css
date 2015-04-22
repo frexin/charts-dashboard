@@ -32,3 +32,7 @@
 .chart-controls .dt-container {
     padding-left: 0;
 }
+
+.chart-controls-top {
+    height: 35px;
+}
