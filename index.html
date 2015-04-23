@@ -14,66 +14,69 @@
     <div class="row">
         <h1 class="page-header">Charts Dashboard</h1>
 
-        <div class="col-xs-4" id="left-side">
-            <div class="group-block clearfix" id="groups-list">
-                <h3>Charts Groups</h3>
-
-                <div class="list-group">
-                </div>
-                <button type="button" id="save-current-group" class="btn btn-primary pull-right">Save Current Group</button>
+        <div id="left-side">
+            <div id="block-toggle" class="column">
+                <span class="glyphicon glyphicon-chevron-left" id="arrow">&nbsp;</span>
             </div>
+            <div id="block-content" class="column">
+                <div class="group-block clearfix" id="groups-list">
+                    <h3>Charts Groups</h3>
 
-            <div class="group-block" id="new-chart-form">
-                <h3>Add New Chart</h3>
+                    <div class="list-group">
+                    </div>
+                    <button type="button" id="save-current-group" class="btn btn-primary pull-right">Save Current Group</button>
+                </div>
 
-                <div class="panel panel-default clearfix">
-                    <form id="chart-new" method="post">
-                        <div class="form-group">
-                            <label for="chartName">Chart Name</label>
-                            <input type="text" class="form-control" id="chartName" name="name" placeholder="Enter chart name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupCond">Filter Condition</label>
-                            <input type="text" class="form-control" id="groupCond"
-                                   placeholder="app:site42" name="filter" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupX">Group X</label>
-                            <input type="text" class="form-control" id="groupX"
-                                   placeholder="Enter grouping condition" name="group_x" value="date_y,date_m,date_d" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupY">Group Y</label>
-                            <input type="text" class="form-control" id="groupY"
-                                   placeholder="Enter grouping condition" name="group_y" value="c0" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary pull-right" id="add-chart-btn">Add Chart</button>
-                    </form>
+                <div class="group-block" id="new-chart-form">
+                    <h3>Add New Chart</h3>
+
+                    <div class="panel panel-default clearfix">
+                        <form id="chart-new" method="post">
+                            <div class="form-group">
+                                <label for="chartName">Chart Name</label>
+                                <input type="text" class="form-control" id="chartName" name="name" placeholder="Enter chart name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupCond">Filter Condition</label>
+                                <input type="text" class="form-control" id="groupCond"
+                                       placeholder="app:site42" name="filter" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupX">Group X</label>
+                                <input type="text" class="form-control" id="groupX"
+                                       placeholder="Enter grouping condition" name="group_x" value="date_y,date_m,date_d" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupY">Group Y</label>
+                                <input type="text" class="form-control" id="groupY"
+                                       placeholder="Enter grouping condition" name="group_y" value="c0" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right" id="add-chart-btn">Add Chart</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-9">
-            <div id="charts-grid">
-                <div class="chart-item thumbnail template hide">
-                    <div class="chart-controls-top">
-                        <button type="button" class="btn btn-default delete-chart pull-right" title="Delete chart">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="chart-body">
+        <div id="charts-grid" class="pull-left">
+            <div class="chart-item thumbnail template hide">
+                <div class="chart-controls-top">
+                    <button type="button" class="btn btn-default delete-chart pull-right" title="Delete chart">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="chart-body">
 
-                    </div>
+                </div>
 
-                    <div class="caption">
-                        <!--<h4>Chart Name</h4>-->
-                        <div class="chart-controls">
-                            <div class="col-xs-10 dt-container">
-                                <input type="text" name="dt_start" id="start-date" class="form-control" placeholder="Select start date" />
-                            </div>
-                            <button class="btn btn-default pull-right" type="button" id="fullscreen-btn" title="Go Fullscreen">
-                                <span class="glyphicon glyphicon-fullscreen"></span>
-                            </button>
+                <div class="caption">
+                    <!--<h4>Chart Name</h4>-->
+                    <div class="chart-controls">
+                        <div class="col-xs-10 dt-container">
+                            <input type="text" name="dt_start" id="start-date" class="form-control" placeholder="Select start date" />
                         </div>
+                        <button class="btn btn-default pull-right" type="button" id="fullscreen-btn" title="Go Fullscreen">
+                            <span class="glyphicon glyphicon-fullscreen"></span>
+                        </button>
                     </div>
                 </div>
             </div>

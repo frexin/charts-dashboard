@@ -10,7 +10,42 @@
     margin-top: 15px;
 }
 #left-side {
-    width: 300px;
+    position: fixed;
+    background: #f8f8f8;
+    overflow: hidden;
+    z-index: 10;
+}
+.column {
+    float: left;
+    height: 750px;
+    /*padding-bottom: 1000px;*/
+    /*margin-bottom: -1000px;*/
+}
+#block-toggle {
+    width: 30px;
+    background-color: #d0d0d0;
+    display: table-cell;
+    vertical-align: middle;
+}
+#block-toggle:hover {
+    background-color: #b1b1b1;
+    cursor: pointer;
+    display: table-cell;
+    text-align: center;
+}
+#block-toggle #arrow {
+    padding-top: 350px;
+    margin-left: 7px;
+}
+#block-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 270px;
+    background: #f5f5f5;
+
+}
+#block-content h3 {
+    margin-top: 10px;
 }
 .group-block {
     margin-bottom: 30px;
@@ -20,8 +55,13 @@
     padding: 15px;
 }
 
+#charts-grid {
+    width: 100%;
+    padding-left: 15px;
+}
+
 .chart-item {
-    width: 335px;
+    width: 30%;
     float: left;
     margin-left: 20px;
 }

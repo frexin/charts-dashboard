@@ -94,4 +94,18 @@ if (typeof ChartsDashboard == "undefined") {
 
         return false;
     });
+
+    $('#block-toggle').on('click', function() {
+        var $block = $('#block-content');
+        var $arrow = $('#arrow');
+
+        if ($block.is(':visible')) {
+            $arrow.removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
+            $block.addClass('hide');
+        }
+        else {
+            $arrow.removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
+            $block.removeClass('hide');
+        }
+    });
 })();
