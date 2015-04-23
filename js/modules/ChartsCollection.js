@@ -23,6 +23,8 @@ if (typeof ChartsDashboard == "undefined") {
 
             Chart.setContainer(newChartNode);
             Chart.show();
+
+            this.reindex();
         },
 
         getItems : function() {
@@ -60,6 +62,25 @@ if (typeof ChartsDashboard == "undefined") {
             }
 
             return serializedData;
+        },
+
+        reorder : function(new_sequence) {
+            var newItems = [];
+
+            for (var i = 0; i < new_sequence.length; i++) {
+                var index = parseInt(new_sequence[i]);
+                var item = this.items[index];
+                newItems.push(item);
+            }
+
+            this.items = newItems;
+        },
+
+        reindex : function() {
+            for (var i = 0; i < this.items.length; i++) {
+                var obj = this.items[i];
+                obj.container.attr('data-id', i);
+            }
         },
 
         _getEmptyNode : function() {

@@ -28,7 +28,6 @@ if (typeof ChartsDashboard == "undefined") {
             this.container = container;
 
             this._addHandlers();
-
         },
 
         getInitParams : function() {

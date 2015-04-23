@@ -4,11 +4,12 @@ if (typeof ChartsDashboard == "undefined") {
 
 (function() {
     var chartsFormContainer = $('#chart-new');
+    var $chartsGrid = $('#charts-grid');
 
     var chartsFormModule = new ChartsDashboard.chartFormModule(chartsFormContainer);
     var remoteDataModule = new ChartsDashboard.remoteDataModule();
     var groupsListModule = new ChartsDashboard.groupsListModule($('#groups-list'));
-    var chartsCollection = new ChartsDashboard.chartsCollection($('#charts-grid'), $('.chart-item.template'));
+    var chartsCollection = new ChartsDashboard.chartsCollection($chartsGrid, $('.chart-item.template'));
 
     remoteDataModule.requestCollectionNames().done(function(response) {
         if (response.items) {
@@ -106,6 +107,20 @@ if (typeof ChartsDashboard == "undefined") {
         else {
             $arrow.removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
             $block.removeClass('hide');
+        }
+    });
+
+    $chartsGrid.sortable({
+        update : function(event, ui) {
+            var collectionId = chartsCollection.getId();
+
+            if (collectionId) {
+                var sequence = $chartsGrid.sortable('toArray', {attribute: 'data-id'});
+                sequence.shift();
+
+                chartsCollection.reorder(sequence);
+                remoteDataModule.updateCollection(collectionId, chartsCollection.serialize());
+            }
         }
     });
 })();
