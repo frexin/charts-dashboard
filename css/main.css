@@ -82,3 +82,7 @@
 .list-group {
     height: 206px;
 }
+
+.popover{
+    max-width:600px;
+}

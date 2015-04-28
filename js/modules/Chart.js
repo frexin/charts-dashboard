@@ -127,6 +127,13 @@ if (typeof ChartsDashboard == "undefined") {
                     return false;
                 }, this));
 
+                $('.info-chart', this.container).popover({
+                    'title' : 'Chart properties',
+                    'content' : JSON.stringify(this.initParams),
+                    'trigger' : 'hover',
+                    'placement' : 'bottom'
+                });
+
                 this.container.data('handlers', 1);
             }
         },
