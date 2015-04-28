@@ -10,6 +10,8 @@ if (typeof ChartsDashboard == "undefined") {
 
         this.items = [];
         this.id = null;
+
+        this._addHandlers();
     };
 
     ChartsDashboard.chartsCollection.prototype = {
@@ -33,6 +35,8 @@ if (typeof ChartsDashboard == "undefined") {
 
         removeItem : function(index) {
             this.items.splice(index, 1);
+            $.publish('collection.update');
+
             return true;
         },
 
@@ -74,6 +78,8 @@ if (typeof ChartsDashboard == "undefined") {
             }
 
             this.items = newItems;
+
+            $.publish('collection.update');
         },
 
         reindex : function() {
@@ -88,6 +94,10 @@ if (typeof ChartsDashboard == "undefined") {
             chartNode.removeClass('hide');
 
             return chartNode;
+        },
+
+        _addHandlers : function() {
+
         }
     };
 }());

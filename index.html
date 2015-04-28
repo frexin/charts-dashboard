@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="group-block" id="new-chart-form">
-                    <h3>Add New Chart</h3>
+                    <h3>Chart Properties</h3>
 
                     <div class="panel panel-default clearfix">
                         <form id="chart-new" method="post">
@@ -52,6 +52,7 @@
                                        placeholder="Enter grouping condition" name="group_y" value="c0" required>
                             </div>
                             <button type="submit" class="btn btn-primary pull-right" id="add-chart-btn">Add Chart</button>
+                            <button type="button" class="btn btn-default pull-left" id="update-chart-btn">Update</button>
                         </form>
                     </div>
                 </div>
@@ -62,6 +63,9 @@
                 <div class="chart-controls-top">
                     <button type="button" class="btn btn-default delete-chart pull-right" title="Delete chart">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default edit-chart pull-right" title="Edit chart">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="chart-body">

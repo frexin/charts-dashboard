@@ -72,7 +72,15 @@ if (typeof ChartsDashboard == "undefined") {
 
     $.subscribe('chart.remove', function(e, index, chart) {
         chartsCollection.removeItem(index);
+    });
 
+    $.subscribe('chart.edit', function(e, chart) {
+        var chartParams = chart.getInitParams();
+        chartsFormModule.load(chartParams);
+        chartsFormModule.setCurrentChart(chart);
+    });
+
+    $.subscribe('collection.update', function(e) {
         var collectionId = chartsCollection.getId();
 
         if (collectionId) {
@@ -81,9 +89,9 @@ if (typeof ChartsDashboard == "undefined") {
         }
     });
 
-    chartsFormContainer.on('submit', function() {
-        if (chartsFormModule.validate()) {
-            var preparedData = chartsFormModule.getPreparedData();
+    $.subscribe('form.addChart', function(e, form) {
+        if (form.validate()) {
+            var preparedData = form.getPreparedData();
 
             remoteDataModule.requestStatData(preparedData).done(function(response) {
                 var dataBridge = new ChartsDashboard.dataBridgeModule(response);
@@ -93,8 +101,25 @@ if (typeof ChartsDashboard == "undefined") {
                 chartsCollection.addItem(chart);
             });
         }
+    });
 
-        return false;
+    $.subscribe('form.updateChart', function(e, form) {
+        if (form.validate()) {
+            var preparedData = form.getPreparedData();
+            var chart = form.getCurrentChart();
+            chart.setTitle(preparedData.name);
+            chart.setInitParams(preparedData);
+
+            remoteDataModule.requestStatData(preparedData).done(function(response) {
+                var dataBridge = new ChartsDashboard.dataBridgeModule(response);
+
+                chart.setCategories(dataBridge.getCategories());
+                chart.setData(dataBridge.getData());
+                chart.show();
+            });
+
+            $.publish('collection.update');
+        }
     });
 
     $('#block-toggle').on('click', function() {
@@ -113,15 +138,10 @@ if (typeof ChartsDashboard == "undefined") {
 
     $chartsGrid.sortable({
         update : function(event, ui) {
-            var collectionId = chartsCollection.getId();
+            var sequence = $chartsGrid.sortable('toArray', {attribute: 'data-id'});
+            sequence.shift();
 
-            if (collectionId) {
-                var sequence = $chartsGrid.sortable('toArray', {attribute: 'data-id'});
-                sequence.shift();
-
-                chartsCollection.reorder(sequence);
-                remoteDataModule.updateCollection(collectionId, chartsCollection.serialize());
-            }
+            chartsCollection.reorder(sequence);
         }
     });
 })();

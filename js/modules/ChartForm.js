@@ -7,9 +7,20 @@ if (typeof ChartsDashboard == "undefined") {
     ChartsDashboard.chartFormModule = function(container) {
         this.container = container;
         this.validator = null;
+        this.currentChart = null;
+
+        this._addHandlers();
     };
 
     ChartsDashboard.chartFormModule.prototype = {
+
+        setCurrentChart : function(chart) {
+            this.currentChart = chart;
+        },
+
+        getCurrentChart : function() {
+            return this.currentChart;
+        },
 
         validate : function() {
             this.validator = this.container.validate();
@@ -20,6 +31,31 @@ if (typeof ChartsDashboard == "undefined") {
         clear : function() {
             this.validator.resetForm();
             return true;
+        },
+
+        load : function(form_data) {
+            var key;
+
+            for (key in form_data) {
+                if (form_data.hasOwnProperty(key)) {
+                    var val = form_data[key];
+
+                    switch (key) {
+                        case 'name':
+                        case 'filter':
+                            $('input[name=' + key + ']', this.container).val(val);
+                            break;
+                        case 'keys':
+                            var keys = val.split(',');
+                            var last_key = keys.pop();
+                            keys = keys.join(',');
+
+                            $('input[name=group_x]', this.container).val(keys);
+                            $('input[name=group_y]', this.container).val(last_key);
+                            break;
+                    }
+                }
+            }
         },
 
         getPreparedData : function() {
@@ -52,6 +88,17 @@ if (typeof ChartsDashboard == "undefined") {
             }
 
             return preparedData;
+        },
+
+        _addHandlers : function() {
+            $(this.container).on('submit', $.proxy(function() {
+                $.publish('form.addChart', [this]);
+                return false;
+            }, this));
+
+            $('#update-chart-btn', this.container).on('click', $.proxy(function() {
+                $.publish('form.updateChart', [this]);
+            }, this));
         }
     };
 }());

@@ -42,7 +42,6 @@
     padding-right: 10px;
     width: 270px;
     background: #f5f5f5;
-
 }
 #block-content h3 {
     margin-top: 10px;
@@ -61,7 +60,7 @@
 }
 
 .chart-item {
-    width: 30%;
+    width: 31.5%;
     float: left;
     margin-left: 20px;
 }
@@ -75,6 +74,9 @@
 
 .chart-controls-top {
     height: 35px;
+}
+.chart-controls-top button {
+    margin-left: 10px;
 }
 
 .list-group {

@@ -24,6 +24,10 @@ if (typeof ChartsDashboard == "undefined") {
             return this.title;
         },
 
+        setTitle : function(title) {
+            this.title = title;
+        },
+
         setContainer : function(container) {
             this.container = container;
 
@@ -40,7 +44,7 @@ if (typeof ChartsDashboard == "undefined") {
 
         show : function() {
             var chartOpts = this._prepareChartOptions();
-            $('h4', this.container).text(this.getTitle());
+//            $('h4', this.container).text(this.getTitle());
             $('.chart-body', this.container).highcharts(chartOpts);
         },
 
@@ -56,6 +60,10 @@ if (typeof ChartsDashboard == "undefined") {
             var chartIndex = this._getChartIndex();
             this.destroy();
             $.publish('chart.remove', [chartIndex, this]);
+        },
+
+        edit : function() {
+            $.publish('chart.edit', [this]);
         },
 
         setData : function(data) {
@@ -103,8 +111,6 @@ if (typeof ChartsDashboard == "undefined") {
                     return false;
                 }, this));
 
-                console.log(this.initParams);
-
                 $('#start-date', this.container).daterangepicker({ format: 'DD.MM.YYYY', drops : 'up', startDate : moment().subtract(7, 'days') },
                     function (start, end, label) {
                         self.changeDateRange(start, end);
@@ -113,6 +119,11 @@ if (typeof ChartsDashboard == "undefined") {
 
                 $('.delete-chart', this.container).on('click', $.proxy(function(e) {
                     this.remove();
+                    return false;
+                }, this));
+
+                $('.edit-chart', this.container).on('click', $.proxy(function(e) {
+                    this.edit();
                     return false;
                 }, this));
 
