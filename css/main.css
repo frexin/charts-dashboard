@@ -86,3 +86,15 @@
 .popover{
     max-width:600px;
 }
+
+.modal-dialog {
+    width: 90%;
+    padding: 0;
+}
+.modal-body {
+    width: 100%;
+}
+
+.modal-content {
+    border-radius: 0;
+}

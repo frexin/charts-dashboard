@@ -8,6 +8,7 @@ if (typeof ChartsDashboard == "undefined") {
         this.title = name;
         this.container = null;
         this.initParams = [];
+        this.highcharts = null;
 
         if (typeof categories !== 'undefined') {
             this.setCategories(categories);
@@ -45,7 +46,7 @@ if (typeof ChartsDashboard == "undefined") {
         show : function() {
             var chartOpts = this._prepareChartOptions();
 //            $('h4', this.container).text(this.getTitle());
-            $('.chart-body', this.container).highcharts(chartOpts);
+            this.highcharts =  $('.chart-body', this.container).highcharts(chartOpts);
         },
 
         destroy : function() {
@@ -91,11 +92,12 @@ if (typeof ChartsDashboard == "undefined") {
 
         goFullScreen : function() {
             var container = $('#chart-modal');
-
             this.setContainer(container);
-            this.show();
 
-            container.modal('show');
+            container.modal('show').on('shown.bs.modal', $.proxy(function() {
+                this.show();
+//                $(window).resize();
+            }, this));
         },
 
         _getChartIndex : function() {
