@@ -12,7 +12,7 @@ if (typeof ChartsDashboard == "undefined") {
 
         requestStatData : function(params) {
             var date_from = moment().subtract(7, 'days').format('YYYYMMDD');
-            var date_to   = moment().format('YYYYMMDD');
+            var date_to   = moment().add(1, 'days').format('YYYYMMDD');
 
             var url = "http://agg.vkontakte.dj/stat.get?jsoncb=?&format=json";
 
@@ -23,7 +23,7 @@ if (typeof ChartsDashboard == "undefined") {
                 fields : "cnt,ip_uniq,uid_uniq"
             };
 
-            var reqParams = $.extend(defaultParams, params)
+            var reqParams = $.extend(defaultParams, params);
             var promise = $.getJSON(url, reqParams);
 
             return promise;
