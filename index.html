@@ -7,6 +7,7 @@
 
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
@@ -19,10 +20,8 @@
                 <span class="glyphicon glyphicon-chevron-left" id="arrow">&nbsp;</span>
             </div>
             <div id="block-content" class="column">
-                <div class="group-block clearfix" id="groups-list">
-                    <h3>Charts Groups</h3>
-
-                    <div class="list-group">
+                <div class="group-block clearfix">
+                    <div class="list-group" id="groups-list">
                     </div>
                     <button type="button" id="save-current-group" class="btn btn-primary pull-right">Save Current Group</button>
                 </div>
@@ -107,6 +106,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/highcharts/highcharts.js"></script>
 <script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
 <script src="js/jquery.pubsub.js"></script>
 <script src="js/modules/Chart.js"></script>
 <script src="js/modules/ChartForm.js"></script>

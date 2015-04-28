@@ -17,7 +17,7 @@
 }
 .column {
     float: left;
-    height: 750px;
+    height: 690px;
     /*padding-bottom: 1000px;*/
     /*margin-bottom: -1000px;*/
 }
@@ -75,4 +75,8 @@
 
 .chart-controls-top {
     height: 35px;
+}
+
+.list-group {
+    height: 206px;
 }

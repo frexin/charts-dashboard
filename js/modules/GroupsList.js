@@ -49,11 +49,11 @@ if (typeof ChartsDashboard == "undefined") {
             node.text(item.name);
             node.attr('data-id', item.id);
 
-            $('.list-group', this.container).append(node);
+            $(this.container).append(node);
         },
 
         _addHandlers : function() {
-            $('.list-group', this.container).on('click', '.list-group-item', $.proxy(function(event) {
+            $(this.container).on('click', '.list-group-item', $.proxy(function(event) {
                 var selectedNode = $(event.currentTarget);
                 var itemId = selectedNode.data('id');
 
@@ -64,6 +64,8 @@ if (typeof ChartsDashboard == "undefined") {
                 var groupName = this.showSaveDialog();
                 $.publish('groupsList.saveGroup', [groupName]);
             }, this));
+
+            this.container.perfectScrollbar();
         }
     };
 }());
