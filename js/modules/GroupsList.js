@@ -70,7 +70,7 @@ if (typeof ChartsDashboard == "undefined") {
                 return false;
             }, this));
 
-            this.container.perfectScrollbar();
+            $('.list-group', this.container).perfectScrollbar();
         }
     };
 }());
