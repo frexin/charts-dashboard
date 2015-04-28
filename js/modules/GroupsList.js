@@ -6,6 +6,7 @@ if (typeof ChartsDashboard == "undefined") {
 
     ChartsDashboard.groupsListModule = function(container) {
         this.container = container;
+        this._addHandlers();
     };
 
     ChartsDashboard.groupsListModule.prototype = {
@@ -16,8 +17,6 @@ if (typeof ChartsDashboard == "undefined") {
 
                 this._renderItem(item);
             }
-
-            this._addHandlers();
         },
 
         showSaveDialog : function() {
@@ -49,11 +48,11 @@ if (typeof ChartsDashboard == "undefined") {
             node.text(item.name);
             node.attr('data-id', item.id);
 
-            $(this.container).append(node);
+            $('.list-group', this.container).append(node);
         },
 
         _addHandlers : function() {
-            $(this.container).on('click', '.list-group-item', $.proxy(function(event) {
+            $('.list-group', this.container).on('click', '.list-group-item', $.proxy(function(event) {
                 var selectedNode = $(event.currentTarget);
                 var itemId = selectedNode.data('id');
 
@@ -63,6 +62,12 @@ if (typeof ChartsDashboard == "undefined") {
             $('#save-current-group', this.container).on('click', $.proxy(function() {
                 var groupName = this.showSaveDialog();
                 $.publish('groupsList.saveGroup', [groupName]);
+            }, this));
+
+
+            $('#update-current-group', this.container).on('click', $.proxy(function() {
+                $.publish('groupsList.updateGroup', [this]);
+                return false;
             }, this));
 
             this.container.perfectScrollbar();

@@ -30,6 +30,10 @@ if (typeof ChartsDashboard == "undefined") {
         });
     });
 
+    $.subscribe('groupsList.updateGroup', function(event, group) {
+        $.publish('collection.update');
+    });
+
     $.subscribe('groupsList.selectItem', function(event, id) {
         var groupData = remoteDataModule.requestCollection(id);
 
