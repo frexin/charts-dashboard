@@ -55,9 +55,10 @@ if (typeof ChartsDashboard == "undefined") {
         });
     });
 
-    $.subscribe('chart.changeDate', function(e, date, chart) {
+    $.subscribe('chart.changeDate', function(e, date_start, date_end, chart) {
         var params = chart.getInitParams();
-        params.from = moment(date, 'DD-MM-YYYY').format('YYYYMMDD');
+        params.from = moment(date_start, 'DD.MM.YYYY').format('YYYYMMDD');
+        params.to = moment(date_end, 'DD.MM.YYYY').format('YYYYMMDD');
 
         remoteDataModule.requestStatData(params).done(function(response) {
             var dataBridge = new ChartsDashboard.dataBridgeModule(response);

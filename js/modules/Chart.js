@@ -77,8 +77,8 @@ if (typeof ChartsDashboard == "undefined") {
             this.categories = categories;
         },
 
-        changeStartDate : function(date) {
-            $.publish('chart.changeDate', [date, this]);
+        changeDateRange : function(date_start, date_end) {
+            $.publish('chart.changeDate', [date_start, date_end, this]);
         },
 
         goFullScreen : function() {
@@ -95,17 +95,21 @@ if (typeof ChartsDashboard == "undefined") {
         },
 
         _addHandlers : function() {
+            var self = this;
+
             if (!this.container.data('handlers')) {
                 $('#fullscreen-btn', this.container).on('click', $.proxy(function () {
                     this.goFullScreen();
                     return false;
                 }, this));
 
-                $('#start-date', this.container).on('change', $.proxy(function(e) {
-                    var date = $(e.currentTarget).val();
-                    this.changeStartDate(date);
-                    return false;
-                }, this));
+                console.log(this.initParams);
+
+                $('#start-date', this.container).daterangepicker({ format: 'DD.MM.YYYY', drops : 'up', startDate : moment().subtract(7, 'days') },
+                    function (start, end, label) {
+                        self.changeDateRange(start, end);
+                        return false;
+                    });
 
                 $('.delete-chart', this.container).on('click', $.proxy(function(e) {
                     this.remove();
