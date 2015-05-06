@@ -52,6 +52,8 @@ if (typeof ChartsDashboard == "undefined") {
                     last_date = curdate;
                 }
 
+                var series_name = '';
+
                 for (var key in row) {
                     if (curdate != last_date) {
                         last_date = curdate;
@@ -74,8 +76,9 @@ if (typeof ChartsDashboard == "undefined") {
                     }
 
                     if (key.length == 2) {
-                        var series_name = row[key];
-
+                        series_name += row[key] + '_';
+                    }
+                    else if (series_name) {
                         if (!series.hasOwnProperty(series_name)) {
                             series[series_name] = [];
                         }
